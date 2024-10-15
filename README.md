@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project involves creating and deploying a simple Flask web application to AWS using Terraform. The focus is on using Infrastructure as Code (IaC) to provision and configure the required cloud resources, including networking, security, and scaling mechanisms.
+This project involves creating and deploying a simple Flask web application to AWS using Terraform. The focus is on using Infrastructure as Code (IaC) to provision and configure the required cloud resources, including networking, security, and scaling mechanisms. To view the end product access the JPEG images  and view the OUTPUT files.
 
 ## Key Objectives
 
