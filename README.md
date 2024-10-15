@@ -23,43 +23,7 @@ The architecture consists of the following components:
 - **IAM Roles and Policies**: Secures access between AWS resources.
 - **CloudWatch**: Monitors and sets up alarms for key metrics (e.g., CPU usage).
 - **Terraform**: Automates the deployment of the entire infrastructure.
-
-## Steps Involved
-
-### 1. Define the VPC
-
-- Use Terraform to create a VPC with two public and two private subnets.
-- Include an Internet Gateway (IGW) for public access.
-
-### 2. Deploy the EC2 Instances
-
-- Set up an auto-scaling group for EC2 instances running the Flask app.
-- Configure security groups to allow traffic only from the ALB.
-- Use EC2 user data to automate the Flask app deployment.
-
-### 3. Configure Load Balancing and Scaling
-
-- Deploy an Application Load Balancer (ALB) to distribute incoming requests.
-- Set up auto-scaling based on CPU utilization.
-
-### 4. Set Up RDS MySQL Database
-
-- Deploy an RDS MySQL instance in the private subnet.
-- Ensure secure connectivity to EC2 instances.
-
-### 5. Use S3 for Static Assets
-
-- Configure an S3 bucket to store static assets for the application.
-
-### 6. Implement Monitoring and Logging
-
-- Set up CloudWatch to monitor the performance of EC2, ALB, and RDS.
-
-### 7. Security Best Practices
-
-- Use IAM roles to interact securely with S3 and RDS.
-- Configure Security Groups and Network ACLs for tight access control.
-
+  
 ## Getting Started
 
 ### Prerequisites
@@ -69,8 +33,64 @@ Before you begin, ensure you have:
 - **AWS Account**: Sign up for an account on [AWS](https://aws.amazon.com/).
 - **Terraform**: Install Terraform from [terraform.io](https://www.terraform.io/downloads.html).
 - **AWS CLI**: Install the AWS Command Line Interface.
+## Steps Involved
 
-### Installation Steps
+### 1. Create the Flask Web Application
+   ```
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello, this is a Highly Available Flask app on AWS!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)
+   ```
+
+### 2. Set Up the AWS Infrastructure with Terraform
+
+Create a directory for the Terraform project, e.g., flask-infra and Inside flask-infra, create the following files:
+  
+- main.tf: Contains the core infrastructure resources.
+- variables.tf: Contains variables to make your infrastructure reusable and configurable.
+- outputs.tf: Defines outputs to get important information after the deployment (e.g., Load Balancer DNS
+
+### 3. Create a VPC with public and private subnets:
+- Use Terraform to create a VPC with two public and two private subnets.
+- Include an Internet Gateway (IGW) for public access.
+
+### 4. Deploy the EC2 Instances
+
+- Set up an auto-scaling group for EC2 instances running the Flask app.
+- Configure security groups to allow traffic only from the ALB.
+- Use EC2 user data to automate the Flask app deployment.
+
+### 5. Configure Load Balancing and Scaling
+
+- Deploy an Application Load Balancer (ALB) to distribute incoming requests.
+- Set up auto-scaling based on CPU utilization.
+
+### 6. Set Up RDS MySQL Database
+
+- Deploy an RDS MySQL instance in the private subnet.
+- Ensure secure connectivity to EC2 instances.
+
+### 7. Use S3 for Static Assets
+
+- Configure an S3 bucket to store static assets for the application.
+
+### 8. Implement Monitoring and Logging
+
+- Set up CloudWatch to monitor the performance of EC2, ALB, and RDS.
+
+### 9. Security Best Practices
+
+- Use IAM roles to interact securely with S3 and RDS.
+- Configure Security Groups and Network ACLs for tight access control.
+
+
+### Installation Steps to Simply use the codes in this repository
 
 1. **Clone the Repository**
 
@@ -86,19 +106,19 @@ Before you begin, ensure you have:
    aws configure
      ```
     Follow the prompts to enter your AWS Access Key ID, Secret Access Key, region, and output format.
-3. Initialize Terraform
+   
+4. Initialize Terraform
    Run the following command to initialize Terraform in your project directory:
    ```
    terraform init
    ```
-4. Apply the Terraform Configuration
+5. Apply the Terraform Configuration
    Create the infrastructure with:
       ```
    terraform apply
       ```
-5. Access the Flask Application
-   Once the deployment is complete, navigate to the Application Load Balancer (ALB) URL provided in the Terraform output to access your Flask application.
-   
+6. Access the Flask Application
+   Once the deployment is complete, navigate to the Application Load Balancer (ALB) URL provided in the Terraform output to access your Flask application and also view access all your provisioned resources in your AWS account.
 
 
 
